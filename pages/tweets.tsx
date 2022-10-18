@@ -1,4 +1,6 @@
 import type { NextPage, GetServerSidePropsContext } from "next";
+import { createClient } from "redis";
+import { TwitterApiCachePluginRedis } from "@twitter-api-v2/plugin-cache-redis";
 import Head from "next/head";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import FullScreenLoading from "src/components/FullScreenLoading";
@@ -155,7 +157,11 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   if (!token) throw new Error("Token not defined!");
 
-  const twitterClient = new TwitterApi(token);
+  const redisInstance = createClient({ url: process.env.REDIS_URL });
+
+  const twitterClient = new TwitterApi(token, {
+    plugins: [new TwitterApiCachePluginRedis(redisInstance)],
+  });
 
   // Tell typescript it's a readonly app
   const readOnlyClient = twitterClient.readOnly;
