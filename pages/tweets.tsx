@@ -124,7 +124,7 @@ const TweetPage: NextPage<TweetsProps> = ({ tweets }) => {
             }
           >
             {`Send ${
-              savedPosts.length === 0 ? "" : savedPosts.length
+              savedPosts.length === 0 ? "0" : savedPosts.length
             } post(s) to Subsocial!`}
           </button>
           <a>{loading ? "Sending tx, open your console" : ""}</a>
