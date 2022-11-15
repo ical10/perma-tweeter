@@ -28,7 +28,14 @@ const Appbar = ({ children }: AppbarProps) => {
     getAccounts();
   };
 
-  const handleChangeAccount = () => {};
+  const handleChangeAccount = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const target = event.target as HTMLButtonElement;
+    const address = target.value;
+
+    const found = accounts.find((account) => account.address === address);
+
+    setSelectedAccount(found!);
+  };
 
   const trimMiddleString = (text?: string, numberStringsKept = 5) => {
     if (!text) return "";
@@ -44,13 +51,39 @@ const Appbar = ({ children }: AppbarProps) => {
       <div className="bg-gray-400 flex flex-row p-2 justify-start items-center">
         <div className="mr-auto">Perma-Tweeter</div>
         {walletAuthorized && accounts.length ? (
-          <button
-            id="connect-button-with-address"
-            onClick={handleChangeAccount}
-            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
-          >
-            {trimMiddleString(selectedAccount?.address)}
-          </button>
+          <div className="group inline-block relative">
+            <button
+              id="connect-button-with-address"
+              className="bg-orange-500 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+            >
+              <span className="mr-1">
+                {trimMiddleString(selectedAccount?.address)}
+              </span>
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{" "}
+              </svg>
+            </button>
+            <ul className="absolute hidden text-white pt-1 group-hover:block">
+              {accounts.map(({ address }) => (
+                <li
+                  key={address}
+                  className="first:rounded-t last:rounded-b bg-orange-500 hover:bg-orange-700"
+                >
+                  <button
+                    className="py-2 px-4 block whitespace-no-wrap"
+                    value={address}
+                    onClick={handleChangeAccount}
+                  >
+                    {trimMiddleString(address)}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : (
           <button
             id="connect-button"
