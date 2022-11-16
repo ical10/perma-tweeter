@@ -20,6 +20,7 @@ const CrossPostPage: NextPage<TweetProps> = () => {
   const { initApi, loading, postTransaction } = useSubSocialApiHook();
 
   const [tweetUrl, setTweetUrl] = useState("");
+  const [loadingTweet, setLoadingTweet] = useState(false);
   const [fetchedTweet, setFetchedTweet] = useState<TweetProps | null>(null);
 
   if (status === "loading") return <FullScreenLoading />;
@@ -40,20 +41,28 @@ const CrossPostPage: NextPage<TweetProps> = () => {
   if (!session) return null;
 
   const handleSignAnSubmit = async () => {
-    const { token } = session;
-    const tweetId = tweetUrl.split("/")[5];
+    setLoadingTweet(true);
 
-    const response = await fetch("/api/crosspost", {
-      method: "POST",
-      body: JSON.stringify({ tweetId, token }),
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
+    try {
+      const { token } = session;
+      const tweetId = tweetUrl.split("/")[5];
 
-    const data = await response.json();
+      const response = await fetch("/api/crosspost", {
+        method: "POST",
+        body: JSON.stringify({ tweetId, token }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
 
-    setFetchedTweet(data);
+      const data = await response.json();
+
+      setFetchedTweet(data);
+    } catch (error) {
+      console.warn({ error });
+    } finally {
+      setLoadingTweet(false);
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,7 +113,9 @@ const CrossPostPage: NextPage<TweetProps> = () => {
             {fetchedTweet ? (
               <button>Send post to Subsocial</button>
             ) : (
-              <button onClick={handleSignAnSubmit}>Find tweet</button>
+              <button disabled={loadingTweet} onClick={handleSignAnSubmit}>
+                {loadingTweet ? "Fetching tweet..." : "Find tweet"}
+              </button>
             )}
           </div>
         </div>
