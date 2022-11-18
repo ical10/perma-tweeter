@@ -148,7 +148,7 @@ const CrossPostPage: NextPage = () => {
       </Head>
 
       <Appbar>
-        <div className="grid grid-cols-[0.75fr_1.75fr_0.75fr] max-w-full max-h-screen">
+        <div className="grid grid-cols-[0.75fr_1.75fr_0.75fr] max-w-full h-screen">
           <div className="flex flex-col self-start mt-4 p-4 gap-2">
             <AuthButton text={"Logout"} />
             <a>{`Welcome! You are logged in as @${session.user.name}`}</a>
