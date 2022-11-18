@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { useWalletStore } from "src/store";
 
 import { web3Accounts, web3Enable } from "@polkadot/extension-dapp";
 import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
@@ -9,6 +10,11 @@ type AppbarProps = {
 };
 
 const Appbar = ({ children }: AppbarProps) => {
+  const { account, setAccount } = useWalletStore((state) => ({
+    account: state.account,
+    setAccount: state.setAccount,
+  }));
+
   const [walletAuthorized, setWalletAuthorized] = useState(false);
   const [accounts, setAccounts] = useState<InjectedAccountWithMeta[]>([]);
   const [selectedAccount, setSelectedAccount] =
@@ -23,6 +29,7 @@ const Appbar = ({ children }: AppbarProps) => {
     const allAccounts = await web3Accounts();
     setAccounts(allAccounts);
     setSelectedAccount(allAccounts[0]);
+    setAccount(allAccounts[0]);
   };
 
   const handleConnect = () => {
@@ -36,6 +43,7 @@ const Appbar = ({ children }: AppbarProps) => {
     const found = accounts.find((account) => account.address === address);
 
     setSelectedAccount(found!);
+    setAccount(found!);
   };
 
   const trimMiddleString = (text?: string, numberStringsKept = 5) => {

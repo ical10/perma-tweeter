@@ -1,12 +1,13 @@
 import type { NextPage, GetServerSidePropsContext } from "next";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import FullScreenLoading from "src/components/FullScreenLoading";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { useWalletStore } from "src/store";
 import AuthButton from "src/components/Button";
 import { unstable_getServerSession } from "next-auth/next";
 import { useSubSocialApiHook } from "src/hooks/use-subsocial-api";
@@ -18,13 +19,36 @@ const Appbar = dynamic(() => import("src/components/Appbar"), {
 const CrossPostPage: NextPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const { initApi, loading, postTransaction } = useSubSocialApiHook();
+  const {
+    initApi,
+    loading,
+    checkSpaceOwnedBy,
+    spaces,
+    createSpaceWithTweet,
+    createPostWithSpaceId,
+  } = useSubSocialApiHook();
+  const { account } = useWalletStore((state) => ({
+    account: state.account,
+  }));
+
+  useEffect(() => {
+    if (session) {
+      initApi({ mnemonic: session.mnemonic });
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (account) {
+      checkSpaceOwnedBy(account);
+    }
+  }, [account]);
 
   const [tweetUrl, setTweetUrl] = useState("");
   const [loadingTweet, setLoadingTweet] = useState(false);
   const [fetchedTweet, setFetchedTweet] = useState<TweetWithAuthorProps | null>(
     null
   );
+  const [selectedSpaceId, setSelectedSpaceId] = useState("");
 
   if (status === "loading") return <FullScreenLoading />;
 
@@ -93,6 +117,26 @@ const CrossPostPage: NextPage = () => {
     return {
       temp,
     };
+  };
+
+  const handleFetchSpaces = () => {
+    checkSpaceOwnedBy(account!);
+  };
+
+  const handleCreateSpaceWithTweet = () => {
+    if (!spaces && account && fetchedTweet) {
+      createSpaceWithTweet({ account, content: fetchedTweet });
+    }
+  };
+
+  const handleCreatePostWithSpaceId = () => {
+    if (fetchedTweet && account && selectedSpaceId) {
+      createPostWithSpaceId({
+        account,
+        content: fetchedTweet,
+        spaceId: selectedSpaceId,
+      });
+    }
   };
 
   return (
@@ -173,18 +217,55 @@ const CrossPostPage: NextPage = () => {
             </div>
           </div>
 
-          <div>Space owned by: {}</div>
-
           <div className="flex flex-col self-start items-center justify-center mt-4 p-4 gap-2">
-            <button
-              className="bg-blue-500 disabled:bg-gray-300 disabled:hover:bg-gray-100 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              disabled={!fetchedTweet}
-              //onClick={handlePostTransaction}
-            >
-              Send post to Subsocial!
-            </button>
-            <a>{loading ? "Sending tx, open your console" : ""}</a>
-            <a>Find tweet first to be sent</a>
+            <div className="flex flex-col">
+              <p>Space you owned: {spaces ? "" : "0"}</p>
+              <div>
+                {spaces?.map((space) => (
+                  <button
+                    className="rounded border border-gray-700 p-2"
+                    key={space.id}
+                    onClick={() => setSelectedSpaceId(space.id)}
+                  >
+                    {space.id}
+                  </button>
+                ))}
+              </div>
+              <button disabled={Boolean(!account)} onClick={handleFetchSpaces}>
+                Find my space(s)
+              </button>
+              {!spaces ? (
+                <button
+                  disabled={
+                    !spaces && Boolean(!account) && Boolean(!fetchedTweet)
+                  }
+                  onClick={handleCreateSpaceWithTweet}
+                >
+                  Create space with tweet
+                </button>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="group relative inline-block">
+              <button
+                className="bg-blue-500 disabled:bg-gray-300 disabled:hover:bg-gray-100 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                disabled={!fetchedTweet || !selectedSpaceId}
+                onClick={handleCreatePostWithSpaceId}
+              >
+                Send post to Subsocial!
+              </button>
+              <a>{loading ? "Sending tx, open your console" : ""}</a>
+
+              {!fetchedTweet ? (
+                <div className="absolute top-full left-1/2 z-20 mt-3 -translate-x-1/2 whitespace-nowrap rounded text-red-500 bg-gray-700 py-[6px] px-4 text-sm font-semibold text-white opacity-0 group-hover:opacity-100">
+                  <span className="absolute top-[-3px] left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45 rounded-sm text-red-500 bg-gray-700"></span>
+                  Find tweet to be sent first
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
           </div>
         </div>
       </Appbar>
