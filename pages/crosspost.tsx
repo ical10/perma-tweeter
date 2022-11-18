@@ -154,8 +154,13 @@ const CrossPostPage: NextPage = () => {
             <a>{`Welcome! You are logged in as @${session.user.name}`}</a>
           </div>
 
-          <div className="flex flex-col max-h-screen p-4">
-            <h2>Cross-post a tweet into Subsocial</h2>
+          <div
+            id="fetch-tweet-container"
+            className="flex flex-col max-h-screen p-4 gap-2"
+          >
+            <h2 className="text-lg font-bold">
+              Cross-post a tweet into Subsocial
+            </h2>
             {fetchedTweet ? (
               <div
                 key={fetchedTweet.id}
@@ -199,7 +204,7 @@ const CrossPostPage: NextPage = () => {
               onChange={handleChange}
               required
             />
-            <div>
+            <div className="flex flex-row gap-2 mt-2">
               <button
                 className="disabled:bg-gray-300 disabled:hover:bg-gray-100 text-red font-bold py-2 px-4 rounded"
                 disabled={!tweetUrl}
