@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@polkadot/api": "^9.8.1",
-    "@polkadot/extension-dapp": "^0.44.6",
+    "@polkadot/api": "latest",
+    "@polkadot/extension-dapp": "latest",
     "@polkadot/util-crypto": "^10.1.10",
-    "@subsocial/api": "0.7.2",
+    "@subsocial/api": "latest",
     "autoprefixer": "^10.4.12",
     "next": "12.3.1",
     "next-auth": "^4.4.0",
