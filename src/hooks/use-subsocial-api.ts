@@ -239,6 +239,7 @@ export const useSubSocialApiHook = () => {
           const { status } = result;
 
           if (!result || !status) {
+            setLoading(false);
             return;
           }
 
@@ -250,10 +251,12 @@ export const useSubSocialApiHook = () => {
             console.log(
               `✅ singleCreatePostTx finalized. Block hash: ${blockHash.toString()}`
             );
+            setLoading(false);
           } else if (result.isError) {
             console.log(JSON.stringify(result));
           } else {
             console.log(`⏱ Current tx status: ${status.type}`);
+            setLoading(true);
           }
         });
       } else {
@@ -292,6 +295,7 @@ export const useSubSocialApiHook = () => {
           const { status } = result;
 
           if (!result || !status) {
+            setLoading(false);
             return;
           }
 
@@ -303,17 +307,17 @@ export const useSubSocialApiHook = () => {
             console.log(
               `✅ batchCreatePostTx finalized. Block hash: ${blockHash.toString()}`
             );
+            setLoading(false);
           } else if (result.isError) {
             console.log(JSON.stringify(result));
           } else {
+            setLoading(true);
             console.log(`⏱ Current tx status: ${status.type}`);
           }
         });
       }
     } catch (err) {
       console.log({ err });
-    } finally {
-      setLoading(false);
     }
   };
 

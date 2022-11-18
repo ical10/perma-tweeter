@@ -23,6 +23,8 @@ const TweetPage: NextPage<TweetsProps> = ({ tweets }) => {
   const { initApi, loading, postTransaction } = useSubSocialApiHook();
   const [savedPosts, setSavedPosts] = useState<PostProps[]>([]);
 
+  const IS_ABOVE_LIMIT = Boolean(savedPosts.length > 5);
+
   useEffect(() => {
     if (savedPosts.length > 0 && session) {
       initApi({ mnemonic: session.mnemonic });
