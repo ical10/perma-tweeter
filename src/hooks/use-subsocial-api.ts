@@ -151,6 +151,7 @@ export const useSubSocialApiHook = () => {
         title: `Tweet by ${temp?.name}`,
         tags: [temp?.name, temp?.username, temp?.profile_image_url],
         body: content.text,
+        canonical: `https://twitter.com/${temp?.username}/status/${content.id}`,
       });
 
       const substrateApi = await subsocialApi?.blockchain.api;
