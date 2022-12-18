@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useWalletStore } from "src/store";
-import SubTweet from "public/SubTweet.svg";
 
 import { web3Accounts, web3Enable } from "@polkadot/extension-dapp";
 import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 
-import { Button } from "react-daisyui";
-import PolkadotIcon from "./PolkadotIcon";
 import ReactIdenticon from "src/components/ReactIdenticon";
-import ST from "public/ST.svg";
+import SubTweet from "src/assets/SubTweet.svg";
+import NewLogoPolkadot from "src/assets/NewLogoPolkadot.svg";
+import ST from "src/assets/ST.svg";
 import Sidebar from "./Sidebar";
 
 import { useRouter } from "next/router";
@@ -72,19 +71,21 @@ const Layout = ({ children }: LayoutProps) => {
           <div className="navbar bg-base-100">
             <div className="navbar-start">
               <div className="dropdown">
-                <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                <label tabIndex={0} className="btn btn-ghost hover:bg-transparent lg:hidden">
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
-                    fill="none"
                     viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                     stroke="currentColor">
+                    {" "}
                     <path
+                      d="M5 6H12H19M5 12H19M5 18H19"
+                      stroke="currentColor"
+                      strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 6h16M4 12h8m-8 6h16"
-                    />
+                    />{" "}
                   </svg>
                 </label>
                 <ul
@@ -163,22 +164,22 @@ const Layout = ({ children }: LayoutProps) => {
             </div>
             <div className="navbar-end">
               {accounts && accounts.length && selectedAccount ? (
-                <Button
+                <button
                   className="btn btn-ghost text-base font-normal normal-case hover:bg-[#f1f3f4]"
                   onClick={() => setIsOpen(!isOpen)}>
                   <div className="flex items-center justify-center gap-2">
                     <ReactIdenticon account={selectedAccount} />
                     <div>{account?.meta.name}</div>
                   </div>
-                </Button>
+                </button>
               ) : (
-                <Button
+                <button
                   id="connect-button"
                   onClick={handleConnect}
-                  className="border-0 bg-gradient-to-r from-primary to-secondary normal-case">
-                  <PolkadotIcon />
+                  className="btn gap-2 border-0 bg-gradient-to-r from-primary to-secondary normal-case">
+                  <NewLogoPolkadot />
                   Connect wallet
-                </Button>
+                </button>
               )}
             </div>
           </div>
