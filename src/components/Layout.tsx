@@ -8,7 +8,7 @@ import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 
 import { Button } from "react-daisyui";
 import PolkadotIcon from "./PolkadotIcon";
-import Identicon from "./Identicon";
+import ReactIdenticon from "src/components/ReactIdenticon";
 import ST from "public/ST.svg";
 import Sidebar from "./Sidebar";
 
@@ -164,10 +164,12 @@ const Layout = ({ children }: LayoutProps) => {
             <div className="navbar-end">
               {accounts && accounts.length && selectedAccount ? (
                 <Button
-                  className="btn btn-ghost gap-2 text-base font-normal normal-case"
+                  className="btn btn-ghost text-base font-normal normal-case hover:bg-[#f1f3f4]"
                   onClick={() => setIsOpen(!isOpen)}>
-                  <Identicon />
-                  <div>{account?.meta.name}</div>
+                  <div className="flex items-center justify-center gap-2">
+                    <ReactIdenticon account={selectedAccount} />
+                    <div>{account?.meta.name}</div>
+                  </div>
                 </Button>
               ) : (
                 <Button
