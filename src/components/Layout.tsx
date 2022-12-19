@@ -9,6 +9,7 @@ import ReactIdenticon from "src/components/ReactIdenticon";
 import SubTweet from "src/assets/SubTweet.svg";
 import NewLogoPolkadot from "src/assets/NewLogoPolkadot.svg";
 import ST from "src/assets/ST.svg";
+import ThreeHorizontalLines from "src/assets/ThreeHorizontalLines.svg";
 import Sidebar from "./Sidebar";
 
 import { useRouter } from "next/router";
@@ -72,21 +73,7 @@ const Layout = ({ children }: LayoutProps) => {
             <div className="navbar-start">
               <div className="dropdown">
                 <label tabIndex={0} className="btn btn-ghost hover:bg-transparent lg:hidden">
-                  <svg
-                    className="h-5 w-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    stroke="currentColor">
-                    {" "}
-                    <path
-                      d="M5 6H12H19M5 12H19M5 18H19"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />{" "}
-                  </svg>
+                  <ThreeHorizontalLines />
                 </label>
                 <ul
                   tabIndex={0}
