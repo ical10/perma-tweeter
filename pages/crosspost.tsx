@@ -27,6 +27,8 @@ import { TwitterShareButton } from "react-share";
 
 import { explorerUrl } from "src/configs/sdk-network-config";
 
+import XIcon from "src/assets/XIcon.svg";
+
 const Layout = dynamic(() => import("src/components/Layout"), {
   ssr: false,
 });
@@ -115,17 +117,7 @@ const CrossPostPage: NextPage = ({ user }: Partial<AuthenticatedPageProps>) => {
             <div className="flex w-full flex-row items-center justify-end px-0 text-xl font-bold leading-7 text-[#222222] md:text-2xl">
               <div className="ml-auto">🎉 Tweet published</div>
               <div onClick={() => setContentId(undefined)} className="ml-auto cursor-pointer">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z"
-                    fill="#888888"
-                  />
-                </svg>
+                <XIcon />
               </div>
             </div>
             <div className="text-base font-normal leading-[140%] text-[#585858]">
