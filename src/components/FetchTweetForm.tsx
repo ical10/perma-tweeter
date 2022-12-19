@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
 import SkeletonCard from "src/components/SkeletonCard";
-import { TweetWithAuthorProps } from "src/types/common";
+import { TweetWithAuthorProps, TweetUserProps } from "src/types/common";
 
 import { Avatar, Button, Card, Tooltip, Input } from "react-daisyui";
 
@@ -17,6 +17,25 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
 
   const [loadingTweet, setLoadingTweet] = useState(false);
   const [fetchedTweet, setFetchedTweet] = useState<TweetWithAuthorProps | null>(null);
+
+  const getAuthor = (tweet: TweetWithAuthorProps) => {
+    const author = tweet.users?.find(user => user.id === tweet.author_id);
+    if (author) {
+      const { id, profile_image_url, name, username } = author;
+      return { id, profile_image_url, name, username };
+    } else {
+      return null;
+    }
+  };
+
+  const tweetAuthor = useMemo(() => {
+    let author: TweetUserProps | null = null;
+    if (fetchedTweet) {
+      author = getAuthor(fetchedTweet);
+    }
+
+    return author;
+  }, [fetchedTweet]);
 
   const handleFetchTweet = async () => {
     setLoadingTweet(true);
@@ -60,14 +79,6 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTweetUrl(event.target.value);
-  };
-
-  const getAuthor = (tweet: TweetWithAuthorProps) => {
-    const temp = tweet.users?.find(user => user.id === tweet.author_id);
-
-    return {
-      temp,
-    };
   };
 
   const formDisabled = !Boolean(session && status === "authenticated");
@@ -123,15 +134,13 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
             className="h-fit rounded-lg border border-[#d9d9d9] bg-white shadow-[0px_4px_+13px_#E1E6E8]">
             <Card.Body className="card-body gap-[14px] px-4 py-5">
               <div className="flex flex-row items-center justify-center gap-2 self-start">
-                <Avatar
-                  src={getAuthor(fetchedTweet).temp?.profile_image_url ?? ""}
-                  shape="circle"
-                  size="xs"
-                />
+                <Avatar src={tweetAuthor?.profile_image_url ?? ""} shape="circle" size="xs" />
                 <div>
-                  <div className="font-bold text-neutral">{getAuthor(fetchedTweet).temp?.name}</div>
+                  <div className="font-bold text-neutral">
+                    {tweetAuthor?.name ?? "Unknown name"}
+                  </div>
                   <div className="font-normal text-gray-500">
-                    {`@${getAuthor(fetchedTweet).temp?.username}`}
+                    {`@${tweetAuthor?.username ?? "Unknown username"}`}
                   </div>
                 </div>
               </div>
