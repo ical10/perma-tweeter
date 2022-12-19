@@ -53,13 +53,13 @@ export const useSubSocialApiHook = () => {
 
       const injector = await web3FromSource(account.meta.source);
 
-      const temp = content.users?.find(user => user.id === content.author_id);
+      const author = content.users?.find(user => user.id === content.author_id);
 
       const cid = await subsocialApi?.ipfs.saveContent({
-        title: `Tweet by ${temp?.name}`,
+        title: `Tweet by ${author?.name}`,
         body: content.text,
-        tags: [temp?.name, temp?.username, temp?.profile_image_url],
-        canonical: `https://twitter.com/${temp?.username}/status/${content.id}`,
+        tags: [author?.name, author?.username, author?.profile_image_url],
+        canonical: `https://twitter.com/${author?.username}/status/${content.id}`,
       });
 
       const substrateApi = await subsocialApi?.blockchain.api;
@@ -157,13 +157,13 @@ export const useSubSocialApiHook = () => {
 
       const injector = await web3FromSource(account.meta.source);
 
-      const temp = content.users?.find(user => user.id === content.author_id);
+      const author = content.users?.find(user => user.id === content.author_id);
 
       const cid = await subsocialApi.ipfs.saveContent({
-        title: `Tweet by ${temp?.name}`,
-        tags: [temp?.name, temp?.username, temp?.profile_image_url],
+        title: `Tweet by ${author?.name}`,
+        tags: [author?.name, author?.username, author?.profile_image_url],
         body: content.text,
-        canonical: `https://twitter.com/${temp?.username}/status/${content.id}`,
+        canonical: `https://twitter.com/${author?.username}/status/${content.id}`,
       });
 
       const substrateApi = await subsocialApi.blockchain.api;
