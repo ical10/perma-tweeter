@@ -56,14 +56,17 @@ const CrossPostPage: NextPage = ({ user }: Partial<AuthenticatedPageProps>) => {
 
   const [contentId, setContentId] = useState<SuccessPayloadProps | undefined>();
 
-  const doesContentExist = Boolean(contentId);
-
   const handleSuccessSendTweet = useCallback(({ spaceId, postId }: SuccessPayloadProps) => {
     setContentId({
       postId,
       spaceId,
     });
   }, []);
+
+  const doesContentExist = Boolean(contentId);
+  const doesAccountExist = Boolean(account);
+  const doesUserExist = Boolean(user);
+  const doesTweetExist = Boolean(fetchedTweet);
 
   if (status === "loading") return <FullScreenLoading />;
 
@@ -81,17 +84,17 @@ const CrossPostPage: NextPage = ({ user }: Partial<AuthenticatedPageProps>) => {
           <div></div>
           <div className="mt-4 flex flex-col gap-4">
             <TwitterUserProfileCard
-              disabled={!Boolean(account) || Boolean(user)}
+              disabled={!doesAccountExist || doesUserExist}
               authenticatedUser={user}
             />
 
             <FetchTweetForm
-              disabled={!Boolean(user) || Boolean(fetchedTweet)}
+              disabled={!doesUserExist || doesTweetExist}
               onFetchTweet={handleSetFetchedTweet}
             />
 
             <SendTweetCard
-              disabled={(!Boolean(account) && !Boolean(user)) || !Boolean(fetchedTweet)}
+              disabled={(!doesAccountExist && !doesUserExist) || !doesTweetExist}
               fetchedTweet={fetchedTweet}
               onSuccess={handleSuccessSendTweet}
             />
