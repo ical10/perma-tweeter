@@ -121,7 +121,7 @@ const Layout = ({ children }: LayoutProps) => {
                     <a
                       rel="noopener noreferrer"
                       href="#"
-                      className={`-mb-1 flex items-center border-b-2 px-4 py-4 hover:text-accent ${
+                      className={`-mb-1 flex items-center border-b-2 px-4 py-4 hover:text-light-blue ${
                         router.pathname === "/tweets"
                           ? "border-accent text-accent"
                           : "border-transparent"
@@ -138,9 +138,9 @@ const Layout = ({ children }: LayoutProps) => {
                     <a
                       rel="noopener noreferrer"
                       href="#"
-                      className={`-mb-1 flex items-center border-b-2 px-4 py-4 hover:text-accent ${
+                      className={`-mb-1 flex items-center border-b-2 px-4 py-4 hover:text-light-blue ${
                         router.pathname === "/crosspost"
-                          ? "border-accent text-accent"
+                          ? "border-accent text-accent hover:text-accent"
                           : "border-transparent"
                       }`}>
                       Cross-post a tweet

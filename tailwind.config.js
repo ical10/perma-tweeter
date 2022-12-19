@@ -22,6 +22,7 @@ module.exports = withMT({
     extend: {
       colors: {
         "light-gray": withOpacityValue("--light-gray"),
+        "light-blue": withOpacityValue("--light-blue"),
       },
       backdropBlur: {
         sm: "1px",
@@ -46,6 +47,7 @@ module.exports = withMT({
           accent: "hsla(224, 61%, 46%, 1)",
           neutral: "hsla(202, 13%, 16%, 1)",
           "--light-gray": "light-gray",
+          "--light-blue": "light-blue",
         },
       },
     ],
