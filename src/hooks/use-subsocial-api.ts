@@ -25,14 +25,9 @@ export const useSubSocialApiHook = () => {
   const [loadingCreatePost, setLoadingCreatePost] = useState(false);
   const [successTx, setSuccessTx] = useState<string | null>(null);
 
-  const initApi = async (mnemonic?: string): Promise<void> => {
-    if (mnemonic) {
-      const api = await initializeApi(mnemonic);
-      setSubsocialApi(api);
-    } else {
-      const api = await initializeApi();
-      setSubsocialApi(api);
-    }
+  const initApi = async (): Promise<void> => {
+    const api = await initializeApi();
+    setSubsocialApi(api);
   };
 
   const createSpaceWithTweet = async ({ account, content }: CreateSpaceProps) => {

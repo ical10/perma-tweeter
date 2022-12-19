@@ -46,7 +46,7 @@ const TweetPage: NextPage<AuthenticatedPageProps> = ({ user }) => {
 
   useEffect(() => {
     if (savedPosts.length > 0 && session) {
-      initApi(session.mnemonic);
+      initApi();
     }
   }, [savedPosts.length, session]);
 
