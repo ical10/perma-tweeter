@@ -44,8 +44,6 @@ const TweetPage: NextPage<AuthenticatedPageProps> = ({ user }) => {
   const [fetchedTweets, setFetchedTweets] = useState<ExpandedTweetProps[]>([]);
   const [loadingTweets, setLoadingTweets] = useState(false);
 
-  const IS_ABOVE_LIMIT = Boolean(savedPosts.length > 5);
-
   useEffect(() => {
     if (savedPosts.length > 0 && session) {
       initApi(session.mnemonic);
@@ -128,18 +126,18 @@ const TweetPage: NextPage<AuthenticatedPageProps> = ({ user }) => {
       </Head>
 
       <Layout>
-        <div className="grid grid-cols-[0.75fr_1.8fr_1.2fr] px-4 max-w-full h-screen">
+        <div className="grid h-screen max-w-full grid-cols-[0.75fr_1.8fr_1.2fr] px-4">
           <TwitterUserProfileCard disabled={false} authenticatedUser={authenticatedUser} />
-          <div className="flex flex-row max-h-screen p-4">
+          <div className="flex max-h-screen flex-row p-4">
             <div className="flex flex-col overflow-y-auto overflow-x-hidden">
               {loadingTweets && <SkeletonCard />}
               {fetchedTweets &&
                 fetchedTweets.map(tweet => (
                   <div
                     key={tweet.id}
-                    className="p-6 max-w-lg bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-blue-500 dark:hover:bg-blue-500
-                flex flex-col items-center mb-4">
-                    <div className="flex flex-row items-center self-start justify-center gap-2">
+                    className="mb-4 flex max-w-lg flex-col items-center rounded-lg border border-gray-200 bg-white p-6 shadow-md
+                hover:bg-gray-100 dark:border-blue-500 dark:bg-gray-800 dark:hover:bg-blue-500">
+                    <div className="flex flex-row items-center justify-center gap-2 self-start">
                       <Image
                         src={session.user?.image ?? ""}
                         alt="user-avatar"
@@ -156,7 +154,7 @@ const TweetPage: NextPage<AuthenticatedPageProps> = ({ user }) => {
                         type="checkbox"
                         value={tweet.id}
                         onChange={handleSelect}
-                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
                       />
                       <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         Select this tweet!
@@ -166,9 +164,9 @@ const TweetPage: NextPage<AuthenticatedPageProps> = ({ user }) => {
                 ))}
             </div>
           </div>
-          <div className="flex flex-col self-start items-center justify-center mt-4 p-4 gap-2 max-w-[500px]">
+          <div className="mt-4 flex max-w-[500px] flex-col items-center justify-center gap-2 self-start p-4">
             <button
-              className="bg-blue-500 disabled:bg-gray-300 disabled:hover:bg-gray-100 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 disabled:bg-gray-300 disabled:hover:bg-gray-100"
               onClick={handlePostTransaction}
               disabled={savedPosts.length === 0 || savedPosts.length > 2 ? true : false}>
               {`Send ${savedPosts.length === 0 ? "0" : savedPosts.length} post(s) to Subsocial!`}
