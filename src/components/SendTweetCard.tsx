@@ -8,6 +8,7 @@ import { useSubSocialApiHook } from "src/hooks/use-subsocial-api";
 import { SuccessPayloadProps } from "src/hooks/subsocial-api.types";
 import { useWalletStore } from "src/store";
 import { TweetWithAuthorProps } from "src/types/common";
+import { SUB_IPFS_NODE_URL } from "src/configs/sdk-network-config";
 
 type SendTweetCardProps = {
   disabled: boolean;
@@ -61,7 +62,6 @@ const SendTweetCard = ({ disabled, fetchedTweet, onSuccess }: SendTweetCardProps
   };
 
   // Need to show avatar stored in subsocial ipfs node
-  const SUB_IPFS_NODE_URL = "https://ipfs.subsocial.network/ipfs";
 
   return (
     <Card

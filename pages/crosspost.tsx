@@ -25,6 +25,8 @@ import { trimMiddleString } from "src/utils/string";
 
 import { TwitterShareButton } from "react-share";
 
+import { explorerUrl } from "src/configs/sdk-network-config";
+
 const Layout = dynamic(() => import("src/components/Layout"), {
   ssr: false,
 });
@@ -43,10 +45,7 @@ const CrossPostPage: NextPage = ({ user }: Partial<AuthenticatedPageProps>) => {
         <div className="color-[#363636] pointer-events-auto flex min-w-[300px] items-center justify-center gap-2 rounded-lg bg-white py-[8px] px-[10px] leading-normal text-black shadow will-change-transform">
           ✅{" "}
           <div className="m-auto">
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`https://polkadot.js.org/apps/?rpc=wss://rco-para.subsocial.network#/explorer/query/${successTx}`}>
+            <a target="_blank" rel="noopener noreferrer" href={`${explorerUrl}/${successTx}`}>
               Tx succesful!
             </a>{" "}
           </div>
