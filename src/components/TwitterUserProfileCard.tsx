@@ -1,6 +1,7 @@
+import { useEffect } from "react";
+import clsx from "clsx";
 import { Card, Avatar, Button } from "react-daisyui";
 import { useTwitterUserStore } from "src/store";
-import { useEffect } from "react";
 import { TweetUserProps } from "src/types/common";
 
 import { signOut, signIn } from "next-auth/react";
@@ -41,18 +42,21 @@ const TwitterUserProfileCard = ({ disabled, authenticatedUser }: TwitterUserProf
     }
   }, [authenticatedUser]);
 
+  const TWITTER_URL = "https://twitter.com";
+
   return (
     <Card className="flex h-fit flex-col rounded-[14px] bg-white shadow-md" bordered={false}>
       <Card.Body className="gap-4 md:gap-6">
-        <h2 className={`text-lg font-bold ${disabled ? "text-[#A0ADB4]" : "text-neutral"}`}>
+        <h2
+          className={clsx("text-lg font-bold text-neutral", {
+            "text-[#A0ADB4]": disabled,
+          })}>
           1. Connect your Twitter account
         </h2>
         <div
-          className={`flex flex-row ${
-            session && status === "authenticated" && authenticatedUser
-              ? "justify-center"
-              : "justify-start"
-          } gap-4`}>
+          className={clsx("flex flex-row justify-start gap-4", {
+            "justify-center": session && status === "authenticated" && authenticatedUser,
+          })}>
           {session && status === "authenticated" && authenticatedUser ? (
             <>
               <div className="flex flex-row items-center justify-center gap-2">
@@ -67,7 +71,7 @@ const TwitterUserProfileCard = ({ disabled, authenticatedUser }: TwitterUserProf
                     className="font-normal text-gray-500"
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={`https://twitter.com/${authenticatedUser.username}`}>{`@${authenticatedUser.username}`}</a>
+                    href={`${TWITTER_URL}/${authenticatedUser.username}`}>{`@${authenticatedUser.username}`}</a>
                 </div>
               </div>
               <div className="ml-auto flex items-center justify-center">
@@ -86,11 +90,10 @@ const TwitterUserProfileCard = ({ disabled, authenticatedUser }: TwitterUserProf
             </>
           ) : (
             <Button
-              className={`border-0 normal-case ${
-                !disabled
-                  ? "btn bg-gradient-to-r from-primary to-secondary hover:brightness-110"
-                  : "btn btn-disabled"
-              }`}
+              className={clsx("border-0 normal-case", {
+                "btn btn-disabled": disabled,
+                "btn-gradient btn": !disabled,
+              })}
               onClick={() =>
                 signIn("twitter", {
                   callbackUrl: `${process.env.NEXT_PUBLIC_AUTH_URL}/crosspost`,

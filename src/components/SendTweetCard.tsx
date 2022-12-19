@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import clsx from "clsx";
 import { Button, Card, Tooltip } from "react-daisyui";
 import { Select, Option } from "@material-tailwind/react";
 import Identicon from "./Identicon";
@@ -61,14 +62,15 @@ const SendTweetCard = ({ disabled, fetchedTweet, onSuccess }: SendTweetCardProps
     }
   };
 
-  // Need to show avatar stored in subsocial ipfs node
-
   return (
     <Card
       bordered={false}
       className="flex flex-col justify-center rounded-[14px] bg-white shadow-md">
       <Card.Body className="gap-4 p-4 md:gap-6 md:p-8">
-        <h2 className={`text-lg font-bold ${disabled ? "text-[#A0ADB4]" : "text-neutral"}`}>
+        <h2
+          className={clsx("text-lg font-bold text-neutral", {
+            "text-[#A0ADB4]": disabled,
+          })}>
           3. Select a Subsocial Space
         </h2>
 
@@ -124,7 +126,10 @@ const SendTweetCard = ({ disabled, fetchedTweet, onSuccess }: SendTweetCardProps
           ) : (
             <Button
               fullWidth
-              className={`w-full ${loadingCreatePost ? "btn-disabled loading" : "btn-gradient"}`}
+              className={clsx("w-full", {
+                "btn btn-disabled loading": loadingCreatePost,
+                "btn-gradient": !loadingCreatePost,
+              })}
               disabled={!fetchedTweet || loadingCreatePost}
               loading={loadingCreatePost}
               onClick={spaces ? handleCreatePostWithSpaceId : handleCreateSpaceWithTweet}>

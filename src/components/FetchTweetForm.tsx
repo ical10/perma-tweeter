@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import SkeletonCard from "src/components/SkeletonCard";
 import { TweetWithAuthorProps, TweetUserProps } from "src/types/common";
@@ -89,7 +90,10 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
       bordered={false}
       className="flex h-fit flex-col rounded-[14px] bg-white shadow-md">
       <Card.Body className="gap-4 p-4 md:gap-6 md:p-8">
-        <h2 className={`text-lg font-bold ${disabled ? "text-[#A0ADB4]" : "text-neutral"}`}>
+        <h2
+          className={clsx("text-lg font-bold text-neutral", {
+            "text-[#a0adb4]": disabled,
+          })}>
           2. Find tweet using URL
         </h2>
         <div className="flex flex-col gap-4">
@@ -116,9 +120,10 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
             </Tooltip>
           ) : (
             <Button
-              className={`${
-                fetchedTweet || loadingTweet ? "btn btn-outline btn-accent" : "btn-gradient"
-              } w-full whitespace-nowrap rounded-lg`}
+              className={clsx({
+                "btn-gradient w-full whitespace-nowrap rounded-lg": !fetchedTweet,
+                "btn btn-outline btn-accent": fetchedTweet,
+              })}
               disabled={loadingTweet}
               onClick={handleFetchTweet}>
               {loadingTweet ? "Fetching..." : "Find tweet"}
