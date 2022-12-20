@@ -14,7 +14,6 @@ import ThreeHorizontalLines from "src/assets/ThreeHorizontalLines.svg";
 import Sidebar from "./Sidebar";
 
 import { useRouter } from "next/router";
-import { link } from "fs";
 
 type LayoutProps = {
   children?: React.ReactNode;
@@ -74,18 +73,12 @@ const Layout = ({ children }: LayoutProps) => {
     },
   ];
 
-  const isOnCrossPostPage = router.pathname === "/crosspost" ? true : false;
+  const isOnActivePage = (path: string) => (router.pathname === path ? true : false);
 
-  const linkClassNames = clsx(
-    "-mb-1 flex items-center border-b-2 px-4 py-4 dark:border-transparent",
-  );
-
-  const anchorTagClassNames = clsx(
-    "-mb-1 flex items-center border-b-2 border-transparent px-4 py-4 hover:text-light-blue",
-    {
-      "border-accent text-accent": isOnCrossPostPage,
-    },
-  );
+  const anchorTagClassNames = (path: string) =>
+    clsx("-mb-1 flex items-center border-transparent px-4 py-4 hover:text-light-blue", {
+      "border-accent border-b-2 text-accent": isOnActivePage(path),
+    });
 
   const linkDropdownClassnames = clsx(
     "-mb-1 flex items-center border-b-2 px-4 py-4 dark:border-transparent",
@@ -120,7 +113,7 @@ const Layout = ({ children }: LayoutProps) => {
                 </ul>
               </div>
               <button onClick={() => router.push("/crosspost")}>
-                <span className="text-2xl font-medium text-primary text-[#6A8CEC]">
+                <span className="text-2xl font-medium text-primary">
                   <div className="hidden md:inline">
                     <SubTweet />
                   </div>
@@ -134,8 +127,11 @@ const Layout = ({ children }: LayoutProps) => {
               <ul className="mx-auto hidden items-stretch space-x-3 md:flex">
                 {navOptions.map(option => (
                   <li key={option.url} className="hover:text-grey-500 flex">
-                    <Link href={option.url} legacyBehavior className={linkClassNames}>
-                      <a rel="noopener noreferrer" href="#" className={anchorTagClassNames}>
+                    <Link href={option.url} legacyBehavior>
+                      <a
+                        rel="noopener noreferrer"
+                        href="#"
+                        className={anchorTagClassNames(option.url)}>
                         {option.text}
                       </a>
                     </Link>
