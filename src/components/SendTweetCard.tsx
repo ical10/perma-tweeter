@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Button, Card, Tooltip } from "react-daisyui";
 import { Select, Option } from "@material-tailwind/react";
-import Identicon from "./Identicon";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSubSocialApiHook } from "src/hooks/use-subsocial-api";
@@ -87,7 +86,10 @@ const SendTweetCard = ({ disabled, fetchedTweet, onSuccess }: SendTweetCardProps
                   <Option key={space.id} value={`${space.id}`} className="flex items-center gap-2">
                     <div className="flex items-center gap-2">
                       <div className="avatar">
-                        <div className="w-6 rounded-full">
+                        <div
+                          className={clsx("w-6 rounded-full border border-[#D9D9D9]", {
+                            "bg-[#E0E0E0]": !space.content?.image,
+                          })}>
                           {space.content?.image ? (
                             <img
                               src={`${SUB_IPFS_NODE_URL}/${space.content.image}`}
@@ -95,7 +97,7 @@ const SendTweetCard = ({ disabled, fetchedTweet, onSuccess }: SendTweetCardProps
                               loading="lazy"
                             />
                           ) : (
-                            <Identicon size={24} />
+                            <></>
                           )}
                         </div>
                       </div>

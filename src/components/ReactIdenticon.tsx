@@ -4,14 +4,17 @@ import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 import React from "react";
 
 type ReactIdenticonProps = {
-  account: InjectedAccountWithMeta;
+  address?: string;
   size?: number;
   theme?: IconTheme;
 };
 
 const ReactIdenticon = (props: ReactIdenticonProps) => {
-  const { account, size = 32, theme = "substrate" } = props;
-  const address = account.address;
+  const {
+    address = "5DSg6JpKCjKVSEEKzVtoSkszpMu3NUfWEs7WiDcCxzhXksCV",
+    size = 32,
+    theme = "substrate",
+  } = props;
 
   return (
     <Identicon

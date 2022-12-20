@@ -1,6 +1,5 @@
 import { Dialog, DialogHeader, DialogBody, DialogFooter } from "@material-tailwind/react";
 import { Button, Card } from "react-daisyui";
-import Identicon from "src/components/Identicon";
 
 import { trimMiddleString } from "src/utils/string";
 import { TwitterShareButton } from "react-share";
@@ -9,6 +8,11 @@ import { SuccessPayloadProps } from "src/hooks/subsocial-api.types";
 import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 
 import XIcon from "src/assets/XIcon.svg";
+
+import dynamic from "next/dynamic";
+const ReactIdenticon = dynamic(() => import("src/components/ReactIdenticon"), {
+  ssr: false,
+});
 
 type SuccessDialogProps = {
   open: boolean;
@@ -51,7 +55,7 @@ const SuccessDialog = (props: SuccessDialogProps) => {
         <Card bordered={false} className="rounded-lg border border-[#d9d9d9] bg-white">
           <Card.Body className="max-w-full gap-4 p-4 md:gap-6 md:p-6">
             <div className="flex flex-row items-center justify-center gap-2 self-start">
-              <Identicon />
+              <ReactIdenticon address={account?.address} size={40} />
               <div>
                 <div className="font-bold text-neutral">{account?.meta.name}</div>
                 <div className="font-normal text-gray-500">

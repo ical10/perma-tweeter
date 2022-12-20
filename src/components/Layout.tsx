@@ -149,7 +149,7 @@ const Layout = ({ children }: LayoutProps) => {
                   className="btn btn-ghost text-base font-normal normal-case hover:bg-[#f1f3f4]"
                   onClick={() => setIsOpen(!isOpen)}>
                   <div className="flex items-center justify-center gap-2">
-                    <ReactIdenticon account={selectedAccount} />
+                    <ReactIdenticon address={selectedAccount.address} />
                     <div>{account?.meta.name}</div>
                   </div>
                 </button>
