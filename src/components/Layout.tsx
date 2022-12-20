@@ -146,7 +146,7 @@ const Layout = ({ children }: LayoutProps) => {
                   onClick={() => setIsOpen(!isOpen)}>
                   <div className="flex items-center justify-center gap-2">
                     <ReactIdenticon address={selectedAccount.address} />
-                    <div>{account?.meta.name}</div>
+                    <div className="hidden md:inline">{account?.meta.name}</div>
                   </div>
                 </button>
               ) : (
