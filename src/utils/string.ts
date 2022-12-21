@@ -6,3 +6,13 @@ export const trimMiddleString = (text?: string, numberStringsKept = 5) => {
 
   return result;
 };
+
+export const textToMarkdownParser = (text: string) => {
+  const hashtagParsed = text.replace(
+    /#(\w+)/g,
+    "[#$1](https://twitter.com/hashtag/$1?src=hashtag_click)",
+  );
+  const markdownReady = hashtagParsed.replace(/@(\w+)/g, "[@$1](https://twitter.com/$1)");
+
+  return markdownReady;
+};
