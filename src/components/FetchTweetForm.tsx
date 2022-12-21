@@ -5,6 +5,7 @@ import SkeletonCard from "src/components/SkeletonCard";
 import { TweetWithAuthorProps, TweetUserProps } from "src/types/common";
 
 import { Avatar, Button, Card, Tooltip, Input } from "react-daisyui";
+import TweetBody from "./render/TweetBody";
 
 type FetchTweetFormProps = {
   disabled: boolean;
@@ -150,7 +151,7 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
                 </div>
               </div>
               <div className="flex flex-col items-start py-2 font-normal text-neutral">
-                {fetchedTweet.text}
+                <TweetBody text={fetchedTweet.text} />
               </div>
             </Card.Body>
           </Card>
