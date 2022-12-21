@@ -24,3 +24,6 @@ export const explorerUrl: string = `https://polkadot.js.org/apps/?${mainnetConfi
 // for writing to Crust IPFS
 export const CRUST_TEST_AUTH_HEADER =
   "c3ViLTVGQTluUURWZzI2N0RFZDhtMVp5cFhMQm52TjdTRnhZd1Y3bmRxU1lHaU45VFRwdToweDEwMmQ3ZmJhYWQwZGUwNzFjNDFmM2NjYzQzYmQ0NzIxNzFkZGFiYWM0MzEzZTc5YTY3ZWExOWM0OWFlNjgyZjY0YWUxMmRlY2YyNzhjNTEwZGY4YzZjZTZhYzdlZTEwNzY2N2YzYTBjZjM5OGUxN2VhMzAyMmRkNmEyYjc1OTBi";
+
+// Misc
+export const BASE_TWITTER_URL = "https://twitter.com";
