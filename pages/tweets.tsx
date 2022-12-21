@@ -13,7 +13,7 @@ import Image from "next/image";
 import { useSubSocialApiHook } from "src/hooks/use-subsocial-api";
 import { AuthenticatedPageProps, TweetProps } from "src/types/common";
 import { Button } from "react-daisyui";
-import { useTwitterUserStore } from "src/store";
+import { useWalletStore, useTwitterUserStore } from "src/store";
 import TwitterUserProfileCard from "components/TwitterUserProfileCard";
 
 import SkeletonCard from "src/components/SkeletonCard";
@@ -33,6 +33,9 @@ const TweetPage: NextPage<AuthenticatedPageProps> = ({ user }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  const { account } = useWalletStore(state => ({
+    account: state.account,
+  }));
   const { user: authenticatedUser, setNewUser } = useTwitterUserStore(state => ({
     user: state.user,
     setNewUser: state.setNewUser,
@@ -94,12 +97,11 @@ const TweetPage: NextPage<AuthenticatedPageProps> = ({ user }) => {
   };
 
   const handlePostTransaction = () => {
-    if (!session) return null;
-    const { mnemonic } = session;
+    if (!account) return null;
 
     postTransaction({
       savedPosts,
-      mnemonic,
+      account,
     });
   };
 

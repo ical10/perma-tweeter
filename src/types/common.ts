@@ -32,7 +32,7 @@ export type TweetWithAuthorProps = TweetProps & {
   users?: TweetUserProps[];
 };
 
-export type ExpandedTweetProps = TweetProps & {
+export type ExpandedTweetProps = TweetWithAuthorProps & {
   url?: string;
 };
 
