@@ -47,7 +47,7 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
         const { data, includes } = await response.json();
 
         const { author_id, edit_history_tweet_ids, id, text } = data;
-        const { users } = includes;
+        const { users, media } = includes;
 
         const payload = {
           author_id,
@@ -55,6 +55,7 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
           id,
           text,
           users,
+          media,
         };
 
         setFetchedTweet(payload);
@@ -141,6 +142,15 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
               <div className="flex flex-col items-start py-2 font-normal text-neutral">
                 <TweetBody text={fetchedTweet.text} />
               </div>
+              {fetchedTweet.media ? (
+                <div className="twitter-image-container">
+                  <img
+                    src={fetchedTweet.media && fetchedTweet.media[0].url}
+                    alt="tweet-media"
+                    className="twitter-image"
+                  />
+                </div>
+              ) : null}
             </Card.Body>
           </Card>
         ) : null}

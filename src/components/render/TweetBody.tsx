@@ -17,6 +17,7 @@ const TweetBody = ({ text }: TweetBodyProps) => {
   return (
     <ReactMarkdown
       linkTarget="_blank"
+      className="whitespace-pre-line"
       components={{
         a: ({ node, ...props }) => <a className="text-link-blue" {...props} />,
       }}
