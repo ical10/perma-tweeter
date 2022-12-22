@@ -8,6 +8,8 @@ import { signOut, signIn } from "next-auth/react";
 
 import { useSession } from "next-auth/react";
 
+import { TWITTER_URL } from "src/configs/urls";
+
 type TwitterUserProfileCardProps = {
   disabled: boolean;
   authenticatedUser?: TweetUserProps;
@@ -42,14 +44,12 @@ const TwitterUserProfileCard = ({ disabled, authenticatedUser }: TwitterUserProf
     }
   }, [authenticatedUser]);
 
-  const TWITTER_URL = "https://twitter.com";
-
   return (
     <Card className="flex h-fit flex-col rounded-[14px] bg-white shadow-md" bordered={false}>
       <Card.Body className="gap-4 md:gap-6">
         <h2
           className={clsx("text-lg font-bold text-neutral", {
-            "text-[#A0ADB4]": disabled,
+            "text-disabled-gray": disabled,
           })}>
           1. Connect your Twitter account
         </h2>

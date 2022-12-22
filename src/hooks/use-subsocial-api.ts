@@ -21,7 +21,7 @@ import {
 import { TweetUserProps, TweetWithAuthorProps } from "src/types/common";
 import { SubmittableResult } from "@polkadot/api";
 import { textToMarkdownParser } from "src/utils/string";
-import { BASE_TWITTER_URL } from "src/configs/sdk-network-config";
+import { TWITTER_URL } from "src/configs/urls";
 
 type SavePostContentProps = {
   author: TweetUserProps;
@@ -61,7 +61,7 @@ export const useSubSocialApiHook = () => {
 
       const cid = await subsocialApi.ipfs.saveContent({
         body: mdContent,
-        tweet: `${BASE_TWITTER_URL}/${author.username}/status/${content.id}`,
+        tweet: `${TWITTER_URL}/${author.username}/status/${content.id}`,
       });
 
       return cid;

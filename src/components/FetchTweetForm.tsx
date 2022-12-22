@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import SkeletonCard from "src/components/SkeletonCard";
 import { TweetWithAuthorProps, TweetUserProps } from "src/types/common";
+import { getAuthor } from "src/utils/tweet";
 
 import { Avatar, Button, Card, Tooltip, Input } from "react-daisyui";
 import TweetBody from "./render/TweetBody";
@@ -20,23 +21,10 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
   const [loadingTweet, setLoadingTweet] = useState(false);
   const [fetchedTweet, setFetchedTweet] = useState<TweetWithAuthorProps | null>(null);
 
-  const getAuthor = (tweet: TweetWithAuthorProps) => {
-    const author = tweet.users?.find(user => user.id === tweet.author_id);
-    if (author) {
-      const { id, profile_image_url, name, username } = author;
-      return { id, profile_image_url, name, username };
-    } else {
-      return null;
-    }
-  };
-
   const tweetAuthor = useMemo(() => {
-    let author: TweetUserProps | null = null;
-    if (fetchedTweet) {
-      author = getAuthor(fetchedTweet);
-    }
+    if (!fetchedTweet) return null;
 
-    return author;
+    return getAuthor(fetchedTweet);
   }, [fetchedTweet]);
 
   const handleFetchTweet = async () => {
@@ -93,7 +81,7 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
       <Card.Body className="gap-4 p-4 md:gap-6 md:p-8">
         <h2
           className={clsx("text-lg font-bold text-neutral", {
-            "text-[#a0adb4]": disabled,
+            "text-disabled-gray": disabled,
           })}>
           2. Find tweet using URL
         </h2>
@@ -108,7 +96,7 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
             onChange={handleChange}
             required
             size="md"
-            className="w-full rounded-lg border border-[#d9d9d9] bg-[#FAFBFB] py-2 text-sm focus:border-accent focus:bg-[#FAFBFB]"
+            className="w-full rounded-lg border border-light-gray bg-[#FAFBFB] py-2 text-sm focus:border-accent focus:bg-[#FAFBFB]"
           />
           {!tweetUrl ? (
             <Tooltip className="w-full" message="Please enter tweet URL">
@@ -137,7 +125,7 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
           <Card
             key={fetchedTweet.id}
             bordered={false}
-            className="h-fit rounded-lg border border-[#d9d9d9] bg-white shadow-[0px_4px_+13px_#E1E6E8]">
+            className="h-fit rounded-lg border border-dark-gray bg-white shadow-[0px_4px_+13px_#E1E6E8]">
             <Card.Body className="card-body gap-[14px] px-4 py-5">
               <div className="flex flex-row items-center justify-center gap-2 self-start">
                 <Avatar src={tweetAuthor?.profile_image_url ?? ""} shape="circle" size="xs" />
@@ -155,9 +143,7 @@ const FetchTweetForm = ({ disabled, onFetchTweet }: FetchTweetFormProps) => {
               </div>
             </Card.Body>
           </Card>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </Card.Body>
     </Card>
   );

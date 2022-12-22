@@ -18,7 +18,7 @@ const TweetBody = ({ text }: TweetBodyProps) => {
     <ReactMarkdown
       linkTarget="_blank"
       components={{
-        a: ({ node, ...props }) => <a className="text-[#316CF4]" {...props} />,
+        a: ({ node, ...props }) => <a className="text-link-blue" {...props} />,
       }}
       remarkPlugins={[remarkGfm]}>
       {parsedMD}

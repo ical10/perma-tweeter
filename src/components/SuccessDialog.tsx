@@ -14,6 +14,12 @@ const ReactIdenticon = dynamic(() => import("src/components/ReactIdenticon"), {
   ssr: false,
 });
 
+import {
+  SUBSOCIAL_TWITTER_URL,
+  SUBSOCIAL_HASHTAG_TWITTER_URL,
+  polkaverseContentURL,
+} from "src/configs/urls";
+
 type SuccessDialogProps = {
   open: boolean;
   onClose: () => void;
@@ -24,12 +30,7 @@ type SuccessDialogProps = {
 const SuccessDialog = (props: SuccessDialogProps) => {
   const { open, onClose, contentId, account } = props;
 
-  const SUBSOCIAL_TWITTER_URL = "https://twitter.com/SubsocialChain";
-
-  const polkaverseContentURL = `https://polkaverse.com/${contentId?.spaceId}/${contentId?.postId}`;
-
-  const SUBSOCIAL_HASHTAG_TWITTER_URL =
-    "https://twitter.com/search?q=%23Subsocial&src=typeahead_click";
+  if (!account) return null;
 
   return (
     <Dialog
@@ -52,21 +53,19 @@ const SuccessDialog = (props: SuccessDialogProps) => {
         </div>
       </DialogHeader>
       <DialogBody className="px-0 md:pt-6 md:pb-4">
-        <Card bordered={false} className="rounded-lg border border-[#d9d9d9] bg-white">
+        <Card bordered={false} className="rounded-lg border border-dark-gray bg-white">
           <Card.Body className="max-w-full gap-4 p-4 md:gap-6 md:p-6">
             <div className="flex flex-row items-center justify-center gap-2 self-start">
-              <ReactIdenticon address={account?.address} size={40} />
+              <ReactIdenticon address={account.address!} size={40} />
               <div>
                 <div className="font-bold text-neutral">{account?.meta.name}</div>
-                <div className="font-normal text-gray-500">
-                  {trimMiddleString(account?.address)}
-                </div>
+                <div className="font-normal text-gray-500">{trimMiddleString(account.address)}</div>
               </div>
             </div>
             <p className="text-base font-normal text-neutral">
               I just cross-posted this tweet to the{" "}
               <a
-                className="link link-hover whitespace-nowrap text-[#316CF4]"
+                className="link link-hover whitespace-nowrap text-link-blue"
                 target="_blank"
                 rel="noopener noreferrer"
                 href={SUBSOCIAL_TWITTER_URL}>
@@ -74,16 +73,16 @@ const SuccessDialog = (props: SuccessDialogProps) => {
               </a>{" "}
               network to make it censorship resistant!{" "}
               <a
-                className="link link-hover text-[#316CF4]"
+                className="link link-hover text-link-blue"
                 target="_blank"
                 rel="noopener noreferrer"
-                href={polkaverseContentURL}>
-                {polkaverseContentURL}
+                href={polkaverseContentURL(contentId)}>
+                {polkaverseContentURL(contentId)}
               </a>
               <br />
               <br />
               <a
-                className="link whitespace-nowrap text-[#316CF4] no-underline"
+                className="link whitespace-nowrap text-link-blue no-underline"
                 target="_blank"
                 rel="noopener noreferrer"
                 href={SUBSOCIAL_HASHTAG_TWITTER_URL}>

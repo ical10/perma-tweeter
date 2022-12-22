@@ -6,6 +6,9 @@
   :root {
     --light-gray: 200deg 13% 95%;
     --light-blue: 224deg 95% 48%;
+    --dark-gray: 0deg 0% 85%;
+    --disabled-gray: 201deg 12% 67%;
+    --link-blue: 222deg 90% 57%;
   }
 }
 

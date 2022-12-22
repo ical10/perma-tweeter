@@ -68,7 +68,7 @@ const SendTweetCard = ({ disabled, fetchedTweet, onSuccess }: SendTweetCardProps
       <Card.Body className="gap-4 p-4 md:gap-6 md:p-8">
         <h2
           className={clsx("text-lg font-bold text-neutral", {
-            "text-[#A0ADB4]": disabled,
+            "text-disabled-gray": disabled,
           })}>
           3. Select a Subsocial Space
         </h2>
@@ -87,7 +87,7 @@ const SendTweetCard = ({ disabled, fetchedTweet, onSuccess }: SendTweetCardProps
                     <div className="flex items-center gap-2">
                       <div className="avatar">
                         <div
-                          className={clsx("w-6 rounded-full border border-[#D9D9D9]", {
+                          className={clsx("w-6 rounded-full border border-dark-gray", {
                             "bg-[#E0E0E0]": !space.content?.image,
                           })}>
                           {space.content?.image ? (
@@ -96,9 +96,7 @@ const SendTweetCard = ({ disabled, fetchedTweet, onSuccess }: SendTweetCardProps
                               alt="space-avatar"
                               loading="lazy"
                             />
-                          ) : (
-                            <></>
-                          )}
+                          ) : null}
                         </div>
                       </div>
                       <div>{space.content?.name ?? "Unnamed space"}</div>
@@ -114,7 +112,7 @@ const SendTweetCard = ({ disabled, fetchedTweet, onSuccess }: SendTweetCardProps
           </div>
 
           {!account ? (
-            <Tooltip className="h-10" message="Please connect Polkadot.js first">
+            <Tooltip className="h-10" message="Please connect wallet first">
               <Button fullWidth className="normal-case" disabled>
                 Publish
               </Button>
