@@ -61,6 +61,7 @@ export const useSubSocialApiHook = () => {
 
       const cid = await subsocialApi.ipfs.saveContent({
         body: mdContent,
+        image: content.media && content.media[0].url,
         tweet: `${TWITTER_URL}/${author.username}/status/${content.id}`,
       });
 
