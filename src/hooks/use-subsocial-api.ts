@@ -126,6 +126,9 @@ export const useSubSocialApiHook = () => {
     } catch (error) {
       if (error instanceof Error && error.message === "Cancelled") {
         toast("Cancelled!", {
+          style: {
+            minWidth: "300px",
+          },
           id: toastId,
         });
         setLoadingCreatePost(false);
@@ -137,7 +140,7 @@ export const useSubSocialApiHook = () => {
   const createSpaceWithTweet = async ({ account, content }: CreateSpaceProps) => {
     setLoadingCreatePost(true);
 
-    const toastId = toast.loading("Loading...", {
+    const toastId = toast("Loading...", {
       style: {
         minWidth: "300px",
       },
@@ -206,7 +209,7 @@ export const useSubSocialApiHook = () => {
     account,
     successCallback,
   }: CreatePostWithSpaceIdProps) => {
-    const toastId = toast.loading("Loading...", {
+    const toastId = toast("Loading...", {
       style: {
         minWidth: "300px",
       },
@@ -255,7 +258,7 @@ export const useSubSocialApiHook = () => {
   const postTransaction = async ({ savedPosts, account }: PostTransactionProps) => {
     setLoadingCreatePost(true);
 
-    const toastId = toast.loading("Loading...", {
+    const toastId = toast("Loading...", {
       style: {
         minWidth: "300px",
       },
