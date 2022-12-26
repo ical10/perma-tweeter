@@ -43,7 +43,6 @@ type SendSignedTxProps = {
 export const useSubSocialApiHook = () => {
   const [subsocialApi, setSubsocialApi] = useState<SubsocialApi | null>(null);
   const [spaces, setSpaces] = useState<SpaceData[] | null>(null);
-  const [loading, setLoading] = useState(false);
   const [loadingSpaces, setLoadingSpaces] = useState(false);
   const [loadingCreatePost, setLoadingCreatePost] = useState(false);
 
@@ -125,12 +124,18 @@ export const useSubSocialApiHook = () => {
         onSuccessCallback(result, toastId, successCallback, spaceId),
       );
     } catch (error) {
+      if (error instanceof Error && error.message === "Cancelled") {
+        toast("Cancelled!", {
+          id: toastId,
+        });
+        setLoadingCreatePost(false);
+      }
       console.warn({ error });
     }
   };
 
   const createSpaceWithTweet = async ({ account, content }: CreateSpaceProps) => {
-    setLoading(true);
+    setLoadingCreatePost(true);
 
     const toastId = toast.loading("Loading...", {
       style: {
@@ -165,8 +170,6 @@ export const useSubSocialApiHook = () => {
       });
     } catch (error) {
       console.warn({ error });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -328,7 +331,6 @@ export const useSubSocialApiHook = () => {
 
   return {
     subsocialApi,
-    loading,
     initApi,
     createSpaceWithTweet,
     createPostWithSpaceId,
