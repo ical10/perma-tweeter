@@ -95,9 +95,9 @@ const SuccessDialog = (props: SuccessDialogProps) => {
       <DialogFooter className="flex flex-col gap-4 p-0">
         <TwitterShareButton
           className="btn-gradient btn w-full"
-          url={`${polkaverseContentURL}\n`}
+          url={`${polkaverseContentURL(contentId)}\n\n`}
           hashtags={["Subsocial"]}
-          title={`I just cross-posted this tweet to the @SubsocialChain network to make it censorship resistant!\n\n`}>
+          title={`I just cross-posted this tweet to the @SubsocialChain network to make it censorship resistant!`}>
           <span className="text-base font-medium text-white">Tweet about it!</span>
         </TwitterShareButton>
         <Button
