@@ -59,11 +59,13 @@ export const useSubSocialApiHook = () => {
     try {
       const mdContent = parseTextToMarkdown(content.text);
 
-      const cid = await subsocialApi.ipfs.saveContent({
+      const contentPayload = {
         body: mdContent,
-        image: content.media && content.media[0].url,
         tweet: `${TWITTER_URL}/${author.username}/status/${content.id}`,
-      });
+        ...(content.media && { image: content.media[0].url }),
+      };
+
+      const cid = await subsocialApi.ipfs.saveContent(contentPayload);
 
       return cid;
     } catch (error) {
