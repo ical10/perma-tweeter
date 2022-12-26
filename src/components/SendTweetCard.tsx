@@ -117,7 +117,7 @@ const SendTweetCard = ({ disabled, fetchedTweet, onSuccess }: SendTweetCardProps
                 Publish
               </Button>
             </Tooltip>
-          ) : !fetchedTweet ? (
+          ) : !fetchedTweet || !selectedSpaceId ? (
             <Tooltip message="Please find a tweet first">
               <Button fullWidth className="normal-case" disabled>
                 Publish
