@@ -1,5 +1,4 @@
 import { describe, expect, test } from "@jest/globals";
-import { input } from "@material-tailwind/react";
 import { parseHashtag, parseUsername, textToMarkdownParser } from "src/utils/string";
 
 const longTweet = `Super GM #Dotsama 
@@ -59,6 +58,8 @@ const inputUsername = "@SubsocialChain is a decentralised social finance platfor
 const outputUsername =
   "[@SubsocialChain](https://twitter.com/SubsocialChain) is a decentralised social finance platform.";
 
+const inputUsernameWithCharPrefix = "123@TwitterSupport";
+
 describe("Username parser", () => {
   test("should return a defined value when given a non-empty string", () => {
     expect(parseUsername(longTweet)).toBeDefined();
@@ -70,6 +71,10 @@ describe("Username parser", () => {
 
   test("should return markdown-formatted string when given a string with @ symbol", () => {
     expect(parseUsername(inputUsername)).toMatch(outputUsername);
+  });
+
+  test("should return the same string if usernames preceeded with characters", () => {
+    expect(parseUsername(inputUsernameWithCharPrefix)).toMatch(inputUsernameWithCharPrefix);
   });
 });
 

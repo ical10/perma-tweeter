@@ -17,7 +17,7 @@ export const parseHashtag = (text: string) => {
 };
 
 export const parseUsername = (text: string) => {
-  const result = text.replace(/@(\w+)/g, "[@$1](https://twitter.com/$1)");
+  const result = text.replace(/(?<!\w)@([a-zA-Z0-9_]+){1,15}/g, "[@$1](https://twitter.com/$1)");
 
   return result;
 };
