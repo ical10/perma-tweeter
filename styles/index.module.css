@@ -1,0 +1,9 @@
+p.coloredDigit {
+  background: linear-gradient(153.79deg, #e93399 0%, #5a90e2 108.58%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 4rem;
+  font-weight: 600;
+  line-height: 160%;
+}

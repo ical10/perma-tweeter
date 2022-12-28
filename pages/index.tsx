@@ -1,65 +1,134 @@
-import type { NextPage, GetServerSidePropsContext } from "next";
-import { unstable_getServerSession } from "next-auth/next";
-import { authOptions } from "pages/api/auth/[...nextauth]";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { useRouter } from "next/router";
-import AuthButton from "src/components/Button";
-import { useSession } from "next-auth/react";
-import FullScreenLoading from "src/components/FullScreenLoading";
+import type { NextPage } from "next";
+import HomeLayout from "src/components/HomeLayout";
+import clsx from "clsx";
+import styles from "styles/index.module.css";
 
-const Home: NextPage = () => {
-  const { status } = useSession();
-  const router = useRouter();
+const customH2 = "text-[2rem] font-medium leading-[2.8rem]";
+const customP = "text-[1.25rem] font-medium leading-[2rem]";
 
-  if (status === "loading") return <FullScreenLoading />;
+const customBaseCard = "rounded-[57px] bg-white";
+const customBaseInnerCard = "rounded-[30px] border border-[#c6cdd0] px-[22.5px] py-[24px]";
 
-  if (status === "authenticated") router.push("/crosspost");
+const btnGradientMd = "btn-gradient btn w-[200px] rounded-xl";
 
+type StepsCardProps = {
+  id: string;
+  text: string;
+  imageUrl: string;
+};
+
+export const StepsCard = ({ id, text, imageUrl }: StepsCardProps) => {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>SubTweet - Login</title>
-        <meta name="description" content="Store your Tweet, permanently" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to SubTweet!</h1>
-        <AuthButton text={"Login with Twitter"} isSignIn={true} />
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer">
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+    <div className={clsx(customBaseInnerCard, "flex flex-row items-center gap-[1.5rem]")}>
+      <div>
+        <p className={styles.coloredDigit}>{id}</p>
+      </div>
+      <div>
+        <p className={clsx(customP)}>{text}</p>
+      </div>
+      <div className="ml-auto">
+        <img src={imageUrl} alt={`${imageUrl}-description`} className="h-auto w-[245px]" />
+      </div>
     </div>
   );
 };
 
+const Home: NextPage = () => {
+  const stepsDetail: StepsCardProps[] = [
+    {
+      id: "1",
+      text: "Simply connect your wallet and Twitter account",
+      imageUrl: "/Step1.png",
+    },
+    {
+      id: "2",
+      text: "Paste the link of the tweet you wish to cross-post",
+      imageUrl: "/Step2.png",
+    },
+    {
+      id: "3",
+      text: "Select a space to post it in",
+      imageUrl: "/Step3.png",
+    },
+    {
+      id: "4",
+      text: "Sign the transaction",
+      imageUrl: "/Step4.png",
+    },
+  ];
+
+  return (
+    <HomeLayout>
+      <div className="w-full max-w-[1261px]">
+        <div className="mb-[61px]">
+          <div className="my-[121px] flex w-full flex-row items-center justify-between">
+            <div className="pr-24">
+              <h1 className="mb-[1.5rem] text-[2.5rem] font-medium leading-[3.5rem]">
+                Back up your tweets to Subsocial’s censorship resistant network
+              </h1>
+              <button className="btn-gradient btn w-[180px] rounded-xl">Enter App</button>
+            </div>
+
+            <img
+              src="/BigMultiCircles.svg"
+              className="sm:w-[50%] lg:w-[549px]"
+              alt="big-multi-lines"
+            />
+          </div>
+
+          <div className="flex flex-col gap-[1.25rem]">
+            <div className={clsx(customBaseCard, "relative")}>
+              <img
+                src="/SmallMeridianLines.svg"
+                className="absolute bottom-0 w-[30%] md:w-[40%] lg:w-[382px]"
+                alt="small-meridian-lines"
+              />
+              <div className="grid grid-cols-[33%_66%] justify-between pr-[41px]">
+                <div className="w-[30%] md:w-[40%] lg:w-[382px]"></div>
+                <div className="pt-[59px] pb-[74px]">
+                  <h2 className={clsx("mb-[40px]", customH2)}>
+                    You don’t own your content on Twitter
+                  </h2>
+                  <p className={clsx(customP, "mb-[43px]")}>
+                    In fact, Twitter can remove your content at will, or even ban you, permanently
+                    deleting all of your tweets.
+                    <br />
+                    <br />
+                    With SubTweet, you can easily cross-post your tweets to Subsocial’s
+                    decentralized network. This means your content is stored on a
+                    censorship-resistant blockchain – your tweets will live forever.
+                  </p>
+                  <button className={clsx(btnGradientMd, "")}>Save Tweets</button>
+                </div>
+              </div>
+            </div>
+
+            <div className={clsx(customBaseCard, "p-[3.75rem]")}>
+              <h2 className={clsx(customH2, "mb-[40px] text-center")}>How it works</h2>
+              <div className="mb-[40px] flex flex-col gap-[1.5rem]">
+                {stepsDetail.map(step => (
+                  <StepsCard key={step.id} id={step.id} text={step.text} imageUrl={step.imageUrl} />
+                ))}
+              </div>
+              <div className="text-center">
+                <button className={clsx(btnGradientMd, "")}>Connect</button>
+              </div>
+            </div>
+
+            <div className={clsx(customBaseCard, "flex flex-col p-[3.75rem]")}>
+              <h2 className={clsx("mb-[24px] text-center", customH2)}>Feature suggestions</h2>
+              <p className="mb-[40px] text-center text-[1.5rem] font-medium leading-[190%]">
+                If you have any feature ideas for the app, please let us know.
+              </p>
+              <div className="text-center">
+                <button className={clsx(btnGradientMd, "")}>Suggest feature</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </HomeLayout>
+  );
+};
+
 export default Home;
-
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  let session = await unstable_getServerSession(ctx.req, ctx.res, authOptions);
-
-  if (session) {
-    return {
-      redirect: {
-        destination: "/crosspost",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}
