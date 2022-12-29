@@ -63,7 +63,7 @@ const SuccessDialog = (props: SuccessDialogProps) => {
               </div>
             </div>
             <p className="text-base font-normal text-neutral">
-              I just cross-posted this tweet to the{" "}
+              I just cross-posted a tweet to the{" "}
               <a
                 className="link link-hover whitespace-nowrap text-link-blue"
                 target="_blank"
@@ -97,7 +97,7 @@ const SuccessDialog = (props: SuccessDialogProps) => {
           className="btn-gradient btn w-full"
           url={`${polkaverseContentURL(contentId)}\n\n`}
           hashtags={["Subsocial"]}
-          title={`I just cross-posted this tweet to the @SubsocialChain network to make it censorship resistant!`}>
+          title={`I just cross-posted a tweet to the @SubsocialChain network to make it censorship resistant!`}>
           <span className="text-base font-medium text-white">Tweet about it!</span>
         </TwitterShareButton>
         <Button
