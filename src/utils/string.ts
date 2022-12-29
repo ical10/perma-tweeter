@@ -22,7 +22,7 @@ export const parseUsername = (text: string) => {
   return result;
 };
 
-export const textToMarkdownParser = (text: string) => {
+export const parseTextToMarkdown = (text: string) => {
   const hashtagParsed = parseHashtag(text);
   const markdownWithLinks = parseUsername(hashtagParsed);
 
