@@ -5,6 +5,8 @@ import React from "react";
 
 import styles from "styles/home-layout.module.css";
 
+import AppButton from "./AppButton";
+
 type HomeLayoutProps = {
   children: React.ReactNode;
 };
@@ -22,7 +24,7 @@ const HomeLayout = ({ children }: HomeLayoutProps) => {
       </Head>
       <header className={styles.header}>
         <SubTweet />
-        <button className="btn-gradient btn w-[121px] rounded-xl">Enter App</button>
+        <AppButton size={"small"} text={"Enter App"} />
       </header>
       <main className={styles.main}>
         <>{children}</>
