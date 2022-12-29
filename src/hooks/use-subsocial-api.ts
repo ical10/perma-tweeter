@@ -126,9 +126,6 @@ export const useSubSocialApiHook = () => {
     } catch (error) {
       if (error instanceof Error && error.message === "Cancelled") {
         toast("Cancelled!", {
-          style: {
-            minWidth: "300px",
-          },
           id: toastId,
         });
         setLoadingCreatePost(false);
@@ -140,11 +137,7 @@ export const useSubSocialApiHook = () => {
   const createSpaceWithTweet = async ({ account, content }: CreateSpaceProps) => {
     setLoadingCreatePost(true);
 
-    const toastId = toast("Loading...", {
-      style: {
-        minWidth: "300px",
-      },
-    });
+    const toastId = toast("Loading...");
 
     try {
       const { web3Enable, web3FromSource } = await import("@polkadot/extension-dapp");
@@ -209,11 +202,7 @@ export const useSubSocialApiHook = () => {
     account,
     successCallback,
   }: CreatePostWithSpaceIdProps) => {
-    const toastId = toast("Loading...", {
-      style: {
-        minWidth: "300px",
-      },
-    });
+    const toastId = toast("Loading...");
 
     setLoadingCreatePost(true);
 
@@ -258,11 +247,7 @@ export const useSubSocialApiHook = () => {
   const postTransaction = async ({ savedPosts, account }: PostTransactionProps) => {
     setLoadingCreatePost(true);
 
-    const toastId = toast("Loading...", {
-      style: {
-        minWidth: "300px",
-      },
-    });
+    const toastId = toast("Loading...");
     try {
       const { web3Enable, web3FromSource } = await import("@polkadot/extension-dapp");
 
