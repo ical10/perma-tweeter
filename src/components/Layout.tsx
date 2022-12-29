@@ -92,7 +92,7 @@ const Layout = ({ children }: LayoutProps) => {
         accounts={accounts ?? []}
         onChangeAccount={handleChangeAccount}>
         <div>
-          <div className="navbar bg-base-100">
+          <div className="navbar bg-base-100 px-8">
             <div className="navbar-start">
               <div className="dropdown">
                 <label tabIndex={0} className="btn btn-ghost hover:bg-transparent lg:hidden">
@@ -112,7 +112,7 @@ const Layout = ({ children }: LayoutProps) => {
                   ))}
                 </ul>
               </div>
-              <button onClick={() => router.push("/crosspost")}>
+              <button onClick={() => router.push("/")}>
                 <span className="text-2xl font-medium text-primary">
                   <div className="hidden md:inline">
                     <SubTweet />
