@@ -9,7 +9,7 @@ const customH2 = "text-[2rem] font-medium leading-[2.8rem] font-unbounded";
 const customP = "text-[1.25rem] font-medium leading-[2rem]";
 
 const customBaseCard = "rounded-[57px] bg-white";
-const customBaseInnerCard = "rounded-[30px] border border-[#c6cdd0] px-[22.5px] py-[24px]";
+const customBaseInnerCard = "rounded-[30px] border border-[#c6cdd0] p-[32px]";
 
 type StepsCardProps = {
   id: string;
@@ -20,7 +20,7 @@ type StepsCardProps = {
 export const StepsCard = ({ id, text, imageUrl }: StepsCardProps) => {
   return (
     <div className={clsx(customBaseInnerCard, "flex flex-row items-center gap-[1.5rem]")}>
-      <div>
+      <div className="flex items-center justify-center">
         <p className={styles.coloredDigit}>{id}</p>
       </div>
       <div>
