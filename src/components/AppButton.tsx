@@ -19,10 +19,10 @@ const AppButton = ({ size, text }: AppButtonProps) => {
 
   return (
     <button
-      className={clsx("btn-gradient btn !rounded-xl", {
+      className={clsx("btn-gradient btn w-full !rounded-xl", {
         "w-[121px]": size === "small",
         "w-[180px]": size === "medium",
-        "w-[200px]": size === "large",
+        "max-w-[200px]": size === "large",
       })}
       onClick={() => router.push("/crosspost")}>
       <span className="text-[1rem] font-medium leading-[162%]">{text}</span>

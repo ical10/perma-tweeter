@@ -8,6 +8,8 @@ import AppButton from "components/AppButton";
 const customH2 = "text-2xl lg:text-[2rem] lg:leading-[2.8rem] font-medium font-unbounded";
 const customP = "text-base lg:text-[1.25rem] lg:leading-[2rem] font-medium";
 
+const customGlobeVertPad = (size: string) => `mt-${size} gap-${size}`;
+
 const marginSubHeader = "mb-[24px] lg:mb-[40px]";
 const customBaseCard = "rounded-[57px] bg-white";
 const cardPadding = "p-[3rem] lg:p-[3.75rem]";
@@ -63,7 +65,11 @@ const Home: NextPage = () => {
     <HomeLayout>
       <div className="w-full max-w-[1261px]">
         <div className="mb-[61px]">
-          <div className="mt-[60px] mb-[121px] flex w-full flex-col items-center justify-between gap-8 lg:my-[121px] lg:flex-row">
+          <div
+            className={clsx(
+              customGlobeVertPad("8"),
+              "mb-[121px] flex w-full flex-col-reverse items-center justify-between lg:my-[121px] lg:flex-row",
+            )}>
             <div className="lg:max-w-[580px]">
               <h1 className="mb-[1.5rem] text-center font-unbounded text-3xl font-medium lg:text-left lg:text-[2.5rem] lg:leading-[3.5rem]">
                 Back up your tweets to Subsocial’s censorship resistant network

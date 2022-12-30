@@ -1,5 +1,6 @@
 import Head from "next/head";
 import SubTweet from "src/assets/SubTweet.svg";
+import ST from "public/ST.svg";
 
 import React from "react";
 
@@ -21,8 +22,15 @@ const HomeLayout = ({ children }: HomeLayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className="sticky top-0 z-10 flex min-h-[70px] items-center justify-between bg-white px-[0.5rem] py-[0.875rem] lg:px-[2rem]">
-        <SubTweet />
-        <AppButton size={"small"} text={"Enter App"} />
+        <div className="hidden sm:block">
+          <SubTweet />
+        </div>
+        <div className="sm:hidden">
+          <ST />
+        </div>
+        <div>
+          <AppButton size={"small"} text={"Enter App"} />
+        </div>
       </header>
       <main className="flex flex-1 flex-col items-center justify-center bg-light-gray px-[8px] sm:px-[32px] lg:px-[90px]">
         <>{children}</>
