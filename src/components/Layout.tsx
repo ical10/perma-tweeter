@@ -92,7 +92,7 @@ const Layout = ({ children }: LayoutProps) => {
         accounts={accounts ?? []}
         onChangeAccount={handleChangeAccount}>
         <div>
-          <div className="navbar bg-base-100 !py-[14px] px-2">
+          <div className="navbar max-h-[70px] bg-base-100 px-2 !py-[14px] lg:px-8">
             <div className="navbar-start">
               <div className="dropdown">
                 <label tabIndex={0} className="btn btn-ghost !p-2 hover:bg-transparent lg:hidden">
