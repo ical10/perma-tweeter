@@ -3,8 +3,6 @@ import SubTweet from "src/assets/SubTweet.svg";
 
 import React from "react";
 
-import styles from "styles/home-layout.module.css";
-
 import AppButton from "./AppButton";
 
 type HomeLayoutProps = {
@@ -22,13 +20,13 @@ const HomeLayout = ({ children }: HomeLayoutProps) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header className={styles.header}>
+      <header className="sticky top-0 z-10 flex min-h-[70px] items-center justify-between bg-white px-[0.5rem] py-[0.875rem] lg:px-[2rem]">
         <SubTweet />
         <AppButton size={"small"} text={"Enter App"} />
       </header>
-      <main className={styles.main}>
+      <main className="flex flex-1 flex-col items-center justify-center bg-light-gray px-[8px] sm:px-[32px] lg:px-[90px]">
         <>{children}</>
-        <footer className={styles.footer}>
+        <footer className="z-10 flex min-h-[109px] w-full max-w-[1261px] items-center">
           <SubTweet />
         </footer>
       </main>
